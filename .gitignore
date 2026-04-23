@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+
+# Data (large processed datasets — generate locally)
+data/
+
+# Training outputs (Hydra, checkpoints, logs)
+outputs/
+wandb/
+*.ckpt
+*.pt
+*.pth
+lightning_logs/
+
+# Generated samples from experiments
+generated_samples/
+
+# IDE / OS
+.idea/
+.vscode/
+*.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ORCA compiled binary and temp files
+src/analysis/orca/orca
+src/analysis/orca/tmp_*.txt

@@ -1,0 +1,24 @@
+# Model settings
+type: 'discrete'
+backbone: 'graphformer_bigbird'
+transition: 'marginal'                          # uniform or marginal
+model: 'graphformer_bigbird'
+diffusion_steps: 500
+diffusion_noise_schedule: 'cosine'              # 'cosine', 'polynomial_2'
+n_layers: 5
+uncon_gen: True
+blc_size: 20
+rd_blcs: 20
+global_tks: 20
+
+
+extra_features: 'all'        # 'all', 'cycles', 'eigenvalues' or null
+
+# Do not set hidden_mlp_E, dim_ffE too high, computing large tensors on the edges is costly
+# At the moment (03/08), y contains quite little information
+hidden_mlp_dims: {'X': 256, 'E': 128, 'y': 128}
+
+# The dimensions should satisfy dx % n_head == 0
+hidden_dims : {'dx': 128, 'de': 64, 'dy': 64, 'n_head': 4, 'dim_ffX': 128, 'dim_ffE': 128, 'dim_ffy': 128}
+
+lambda_train: [5, 0]

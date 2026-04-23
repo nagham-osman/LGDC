@@ -1,0 +1,10 @@
+# Decoarsening Model Settings
+emb_features: 32
+hidden_features: 256
+ppgn_features: 128
+num_layers: 10
+dropout: 0.1 #0.3
+num_steps: 256
+self_conditioning: False
+lr_dec: 0.00001
+w_decay: 1e-12

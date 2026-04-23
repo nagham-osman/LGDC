@@ -1,0 +1,6 @@
+name: sbm_neg
+remove_h: null
+datadir: 'data/sbm_neg/'
+num_cluster: 5
+homo_ratio: 0.01
+hetero_ratio: 0.3

@@ -1,0 +1,27 @@
+# Memory-efficient PPGN configuration for large graphs
+# Use this configuration for graphs with >100 nodes
+
+# Core PPGN parameters (reduced for memory efficiency)
+emb_features: 64        # Reduced from typical 128
+hidden_features: 128    # Reduced from typical 256  
+ppgn_features: 32       # Reduced from typical 64
+num_layers: 4           # Reduced from typical 6
+dropout: 0.1
+
+# Memory optimization parameters
+memory_efficient: true                    # Enable memory-efficient implementation
+triangle_chunk_size: 1000                 # Process triangles in chunks of 1000
+max_skip_layers: 3                        # Limit skip connections to last 3 layers
+use_gradient_checkpointing: false         # Enable for training (trades compute for memory)
+memory_efficient_triangles: true          # Use streaming triangle computation
+cleanup_frequency: 2                      # Run garbage collection every 2 layers
+
+# Training parameters
+lr_dec: 0.0005         # Learning rate for decoarsening model
+w_decay: 0.0001        # Weight decay
+
+# Self-conditioning (can be disabled to save memory)
+self_conditioning: true
+
+# Diffusion parameters for decoarsening
+num_steps: 10          # Reduced from typical 50 for memory efficiency

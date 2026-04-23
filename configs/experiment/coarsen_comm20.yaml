@@ -1,0 +1,36 @@
+# @package _global_
+general:
+    name : 'coarsen_comm20'
+    gpus : 1
+    wandb: 'online'
+    resume: null           # If resume, path to ckpt file from outputs directory in main directory
+    test_only: '/scratch/uceeosm/digress_coarsen/outputs/2025-08-06/19-30-35-comm20_indp_latent4_spec4_bs128_lr0.0001_wd1e-8_lrdec0.0005_wdecay1e-5_steps256_aug_pres4_rand0.3/checkpoints/comm20_indp_latent4_spec4_bs128_lr0.0001_wd1e-8_lrdec0.0005_wdecay1e-5_steps256_aug_pres4_rand0.3/last-v1.ckpt'
+    decoarse_checkpoint: null
+    check_val_every_n_epochs: 100
+    sample_every_val: 4
+    samples_to_generate: 40
+    samples_to_save: 9
+    chains_to_save: 1
+    final_model_samples_to_generate: 40
+    final_model_samples_to_save: 30
+    final_model_chains_to_save: 20
+train:
+    n_epochs: 100000
+    lr: 0.0002
+    batch_size: 8
+    save_model: True
+model:
+    diffusion_steps: 1000
+    n_layers: 8
+    lambda_train: [5, 0]
+    extra_features: 'all'
+
+    # Do not set hidden_mlp_E, dim_ffE too high, computing large tensors on the edges is costly
+    # At the moment (03/08), y contains quite little information
+    hidden_mlp_dims: { 'X': 128, 'E': 128, 'y': 128 }
+
+    # The dimensions should satisfy dx % n_head == 0
+    hidden_dims: { 'dx': 256, 'de': 256, 'dy': 64, 'n_head': 8, 'dim_ffX': 256, 'dim_ffE': 256, 'dim_ffy': 256 }
+
+reduction:
+    coarsening: True

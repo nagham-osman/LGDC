@@ -1,0 +1,20 @@
+# Reduction Settings
+coarsening: True
+contraction_family: edges   # 'neighborhoods' or 'edges'
+cost_type: local_variation
+preserved_eig_size: 8
+sqrt_partition_size: True
+weighted_reduction: True
+min_red_frac: 0.1
+max_red_frac: 0.3
+red_threshold: 16
+latent_graph_size: 16
+num_red_seqs: -1 # infinite
+rand_lambda: 0 # 0 for no randomization
+
+# Expansion Settings
+augmented_radius: 2
+augmented_dropout: 0.5
+deterministic_expansion: True
+iterative: False
+sampling_mode: 'uniform'      # 'polydec', 'uniform', 'polyinc', 'cos', 'revcos'

@@ -1,0 +1,6 @@
+name: sbm_pos
+remove_h: null
+datadir: 'data/sbm_pos/'
+num_cluster: 5
+homo_ratio: 0.3
+hetero_ratio: 0.01
