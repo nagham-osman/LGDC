@@ -1,6 +1,6 @@
 # LGDC: Latent Graph Diffusion via Spectrum-Preserving Coarsening
 
-Official implementation of **LGDC**, accepted at the **NeurIPS 2025 New Perspectives in Advancing Graph Machine Learning Workshop**.
+Official implementation of **LGDC(https://arxiv.org/pdf/2512.01190)**, accepted at the **NeurIPS 2025 New Perspectives in Advancing Graph Machine Learning Workshop**.
 
 > **LGDC: Latent Graph Diffusion via Spectrum-Preserving Coarsening**  
 > Nagham Osman, Keyue Jiang, Davide Buffelli, Xiaowen Dong, Laura Toni  
@@ -16,56 +16,6 @@ Graph generation methods fall into two categories: autoregressive models (iterat
 
 ```
 G  ──coarsen──►  G_c  ──diffuse/denoise──►  Ĝ_c  ──expand/refine──►  Ĝ
-```
-
-### Key properties
-- **Complexity**: O(n² + T·n_c²) vs O(T·n²) for one-shot and O(T·n²/3) for autoregressive
-- **Spectrum-preserving**: coarsening keeps principal Laplacian eigenvalues/eigenspaces close between original and coarsened graphs (restricted spectral similarity)
-- **Single-step decoding**: one coarse-to-fine pass at both training and test time
-
-## Results
-
-| Model | Class | Planar V.U.N.↑ | Planar A.Ratio↓ | Tree V.U.N.↑ | Tree A.Ratio↓ | Comm-20 Deg.↓ | Comm-20 Clus.↓ | Comm-20 Orb.↓ |
-|-------|-------|---------------|----------------|-------------|--------------|--------------|----------------|--------------|
-| HSpectre | Autoregressive | 62.5 | 2.90 | 82.5 | 2.10 | — | — | — |
-| DeFoG | One-shot | 77.5 | 4.07 | 73.1 | 1.50 | 0.071 | 0.115 | 0.037 |
-| **LGDC (Ours)** | **Hybrid** | **82.5** | **3.06** | **86.0** | **1.70** | **0.037** | **0.027** | **0.007** |
-
-## Repository structure
-
-```
-LGDC/
-├── src/
-│   ├── main.py                        # Training entry point (Hydra + PyTorch Lightning)
-│   ├── diffusion_model_coarsen.py     # CoarsenedDDM — main LGDC model
-│   ├── diffusion_model_discrete.py    # DiscreteDenoisingDiffusion base class
-│   ├── diffusion_model.py             # LiftedDenoisingDiffusion (continuous variant)
-│   ├── decoarse_model.py              # Stand-alone decoarsening/refinement model
-│   ├── utils.py
-│   ├── analysis/                      # Evaluation metrics & visualization
-│   ├── datasets/                      # Dataset implementations
-│   │   └── coarsen_spectre_dataset.py # Coarsened graph datasets (main dataset class)
-│   ├── diffusion/                     # Noise schedules, distributions, utils
-│   ├── expansion/                     # Graph expansion & one-shot decode
-│   ├── graph_coarsen/                 # Spectral coarsening (REC algorithm)
-│   ├── metrics/                       # Training and evaluation metrics
-│   └── models/                        # Neural network architectures
-│       ├── graphformer_uncon.py       # Graph Transformer (diffusion backbone)
-│       ├── sparse_ppgn.py             # Sparse PPGN (refinement model)
-│       ├── ppgn.py                    # PPGN
-│       └── ...
-└── configs/                           # Hydra configuration files
-    ├── config.yaml
-    ├── experiment/                    # Ready-to-run experiment configs
-    │   ├── coarsen_planar.yaml
-    │   ├── coarsen_sbm.yaml
-    │   ├── coarsen_tree.yaml
-    │   └── coarsen_comm20.yaml
-    ├── dataset/
-    ├── model/
-    ├── train/
-    ├── decoarse/
-    └── reduction/
 ```
 
 ## Installation
@@ -106,32 +56,6 @@ g++ -O2 -std=c++11 -o orca orca.cpp
 ## Running experiments
 
 All experiments are launched through `src/main.py` using [Hydra](https://hydra.cc/) for configuration.
-
-```bash
-cd src
-
-# Debug run (recommended first)
-python main.py +experiment=debug.yaml
-
-# Planar graphs (coarsening pipeline)
-python main.py +experiment=coarsen_planar.yaml
-
-# Tree graphs
-python main.py +experiment=coarsen_tree.yaml
-
-# SBM / Community graphs
-python main.py +experiment=coarsen_sbm.yaml
-python main.py +experiment=coarsen_comm20.yaml
-```
-
-Override any config parameter on the command line:
-```bash
-python main.py +experiment=coarsen_planar.yaml train.batch_size=16 train.lr=0.0002
-```
-
-## Data
-
-Datasets are generated/downloaded automatically the first time you run an experiment. Processed files are cached under `data/` (excluded from version control due to size).
 
 ## Citation
 
