@@ -1,6 +1,6 @@
 # LGDC: Latent Graph Diffusion via Spectrum-Preserving Coarsening
 
-Official implementation of **LGDC(https://arxiv.org/pdf/2512.01190)**, accepted at the **NeurIPS 2025 New Perspectives in Advancing Graph Machine Learning Workshop**.
+Official implementation of **[LGDC](https://arxiv.org/pdf/2512.01190)**, accepted at the **NeurIPS 2025 New Perspectives in Advancing Graph Machine Learning Workshop**.
 
 > **LGDC: Latent Graph Diffusion via Spectrum-Preserving Coarsening**  
 > Nagham Osman, Keyue Jiang, Davide Buffelli, Xiaowen Dong, Laura Toni  
